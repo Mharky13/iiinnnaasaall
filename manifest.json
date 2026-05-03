@@ -1,0 +1,15 @@
+{
+"name": "Inasal Express Green",
+"short_name": "Inasal",
+"start_url": "index.html",
+"display": "standalone",
+"background_color": "#0b120e",
+"theme_color": "#2ECC71",
+"icons": [
+    {
+    "src": "https://flaticon.com",
+    "sizes": "512x512",
+    "type": "image/png"
+    }
+]
+}

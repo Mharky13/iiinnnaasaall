@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inasal Express | Green Grill</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://googleapis.com" rel="stylesheet">
+</head>
+<body>
+
+    <div class="overlay" id="overlay"></div>
+
+    <header>
+        <div class="logo">🍗 Inasal<span>Green</span></div>
+        <div class="cart-icon" onclick="toggleCart()">
+            🛒 <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Freshly Grilled</h1>
+            <p>Authentic Charcoal Chicken Inasal</p>
+        </section>
+
+        <div class="menu-grid">
+            <div class="card">
+                <div class="badge">Best Seller</div>
+                <div class="card-img">🍗</div>
+                <div class="card-info">
+                    <h3>Chicken Paa</h3>
+                    <p>Leg & Thigh marinated in secret spices.</p>
+                    <div class="card-footer">
+                        <span class="price">₱145.00</span>
+                        <button onclick="addToCart('Chicken Paa', 145)">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img">🍢</div>
+                <div class="card-info">
+                    <h3>Chicken Pecho</h3>
+                    <p>Juicy Breast & Wing charcoal-grilled.</p>
+                    <div class="card-footer">
+                        <span class="price">₱155.00</span>
+                        <button onclick="addToCart('Chicken Pecho', 155)">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Checkout Sidebar -->
+    <aside id="cart-sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2>Current Order</h2>
+            <button class="clear-btn" onclick="clearCart()">Clear All</button>
+            <button class="close-btn" onclick="toggleCart()">×</button>
+        </div>
+        
+        <div id="cart-items" class="cart-items-list">
+            <p class="empty-msg">No items in basket</p>
+        </div>
+
+        <div class="payment-section">
+            <div class="input-group">
+                <label>Cash Received (₱)</label>
+                <input type="number" id="cash-amount" placeholder="0.00" oninput="calculateChange()">
+            </div>
+            <div class="change-display">
+                <span>Change:</span>
+                <span id="change-total">₱0.00</span>
+            </div>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="total-row">
+                <span>Total:</span>
+                <span id="cart-total">₱0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="placeOrder()">Confirm Order</button>
+        </div>
+    </aside>
+
+    <!-- Receipt Modal -->
+<div id="receipt-modal" class="receipt-overlay">
+    <div class="receipt-paper">
+        <div class="receipt-header">
+            <h2>RECEIPT</h2>
+            <p>Inasal Express Green</p>
+            <p id="receipt-date"></p>
+        </div>
+        <hr>
+        <div id="receipt-items-list">
+            <!-- Items appear here -->
+        </div>
+        <hr>
+        <div class="receipt-math">
+            <div class="receipt-row"><span>Total:</span><span id="r-total"></span></div>
+            <div class="receipt-row"><span>Cash:</span><span id="r-cash"></span></div>
+            <div class="receipt-row bold"><span>Change:</span><span id="r-change"></span></div>
+        </div>
+        <div class="receipt-footer">
+            <p>Thank you for your order!</p>
+            <button class="close-receipt-btn" onclick="closeReceipt()">Close & Done</button>
+        </div>
+    </div>
+</div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
