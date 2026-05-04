@@ -109,6 +109,17 @@
         </div>
     </div>
 </div>
+<div id="rice-modal" class="receipt-overlay" style="display:none;">
+    <div class="rice-selection-card">
+        <h3 id="rice-product-name">Item Name</h3>
+        <p>Select Rice Option:</p>
+        <div class="rice-options">
+            <button class="rice-btn" onclick="confirmRice(false)">Regular Rice (Free)</button>
+            <button class="rice-btn" onclick="confirmRice(true)">Unli Rice (+₱30.00)</button>
+        </div>
+        <button class="cancel-btn" onclick="closeRiceModal()">Cancel</button>
+    </div>
+</div>
 
 
     <script src="script.js"></script>
