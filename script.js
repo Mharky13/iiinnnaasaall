@@ -85,12 +85,6 @@ function placeOrder() {
     const itemsList = cart.map(i => i.name).join(", ");
     const change = cash - total;
     
-    // 1. Generate SMS message
-    const message = `INASAL ORDER:\nItems: ${itemsList}\nTotal: ₱${total.toFixed(2)}\nCash: ₱${cash.toFixed(2)}\nChange: ₱${change.toFixed(2)}`;
-    
-    // 2. Open SMS app
-    window.location.href = `sms:+639123456789?body=${encodeURIComponent(message)}`;
-
     // 3. Show Digital Receipt
     showReceipt(cash, change);
 }
@@ -124,5 +118,55 @@ function closeReceipt() {
     clearCart(); // Wipes data for the next customer
     toggleCart(); // Closes the sidebar
 }
+// Initialize data from LocalStorage or start fresh
+let salesHistory = JSON.parse(localStorage.getItem('inasal_sales')) || [];
+
+// Function to save order to history (Call this inside your placeOrder function)
+function saveOrderToHistory(items, total) {
+    const orderRecord = {
+        timestamp: new Date().toLocaleTimeString(),
+        items: items.map(i => i.name).join(", "),
+        total: total
+    };
+    
+    salesHistory.push(orderRecord);
+    localStorage.setItem('inasal_sales', JSON.stringify(salesHistory));
+    updateDashboard();
+}
+
+function updateDashboard() {
+    const historyBody = document.getElementById('history-body');
+    const revenueDisplay = document.getElementById('total-revenue-display');
+    const ordersDisplay = document.getElementById('total-orders-display');
+    
+    let totalRevenue = 0;
+    historyBody.innerHTML = "";
+
+    salesHistory.forEach(order => {
+        totalRevenue += order.total;
+        const row = `<tr>
+            <td>${order.timestamp}</td>
+            <td>${order.items}</td>
+            <td>₱${order.total.toFixed(2)}</td>
+        </tr>`;
+        historyBody.innerHTML += row;
+    });
+
+    revenueDisplay.innerText = `₱${totalRevenue.toFixed(2)}`;
+    ordersDisplay.innerText = salesHistory.length;
+}
+
+// Function to clear all history
+function clearHistory() {
+    if(confirm("Are you sure you want to delete all sales records?")) {
+        salesHistory = [];
+        localStorage.removeItem('inasal_sales');
+        updateDashboard();
+    }
+}
+
+// IMPORTANT: Update your existing placeOrder() function to include:
+// saveOrderToHistory(cart, totalAmount);
+
 
 document.getElementById('overlay').onclick = toggleCart;
