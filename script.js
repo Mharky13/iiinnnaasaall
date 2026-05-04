@@ -70,11 +70,7 @@ function placeOrder() {
 
     const itemsList = cart.map(i => i.name).join(", ");
     const change = cash - total;
-    
-    const message = `NEW ORDER:\nItems: ${itemsList}\nTotal: ₱${total.toFixed(2)}\nCash: ₱${cash.toFixed(2)}\nChange: ₱${change.toFixed(2)}`;
-    
-    // Change this to your real number
-    window.location.href = `sms:+639123456789?body=${encodeURIComponent(message)}`;
+
 }
 function placeOrder() {
     const cash = parseFloat(document.getElementById('cash-amount').value) || 0;
