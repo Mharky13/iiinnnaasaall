@@ -70,7 +70,11 @@ function placeOrder() {
 
     const itemsList = cart.map(i => i.name).join(", ");
     const change = cash - total;
-
+    
+    const message = `NEW ORDER:\nItems: ${itemsList}\nTotal: ₱${total.toFixed(2)}\nCash: ₱${cash.toFixed(2)}\nChange: ₱${change.toFixed(2)}`;
+    
+    // Change this to your real number
+    window.location.href = `sms:+639123456789?body=${encodeURIComponent(message)}`;
 }
 function placeOrder() {
     const cash = parseFloat(document.getElementById('cash-amount').value) || 0;
@@ -160,6 +164,41 @@ function clearHistory() {
         updateDashboard();
     }
 }
+let pendingItem = null; // Stores the item while choosing rice
+
+// 1. Modified addToCart to trigger the rice selection
+function addToCart(name, price) {
+    pendingItem = { name, price };
+    document.getElementById('rice-product-name').innerText = name;
+    document.getElementById('rice-modal').style.display = 'flex';
+}
+
+// 2. Function to confirm selection and finally push to cart
+function confirmRice(isUnli) {
+    if (!pendingItem) return;
+
+    let finalName = pendingItem.name + (isUnli ? " (Unli Rice)" : " (Reg Rice)");
+    let finalPrice = pendingItem.price + (isUnli ? 30 : 0);
+
+    cart.push({ name: finalName, price: finalPrice });
+    
+    closeRiceModal();
+    updateCartUI();
+    if (navigator.vibrate) navigator.vibrate(50);
+}
+
+function closeRiceModal() {
+    document.getElementById('rice-modal').style.display = 'none';
+    pendingItem = null;
+}
+
+// 3. Attach event listeners to the buttons (Add this to your window.onload)
+window.onload = function() {
+    updateDashboard(); // Your existing function
+    
+    document.getElementById('reg-rice-btn').onclick = () => confirmRice(false);
+    document.getElementById('unli-rice-btn').onclick = () => confirmRice(true);
+};
 
 // IMPORTANT: Update your existing placeOrder() function to include:
 // saveOrderToHistory(cart, totalAmount);
