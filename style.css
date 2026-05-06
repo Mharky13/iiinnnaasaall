@@ -169,5 +169,57 @@ th { background: #2e7d32; color: white; }
     border: 2px dashed #2e7d32; /* Makes it look different from regular items */
     background: #f9fff9;
 }
+@media print {
+    /* Hide everything on the page */
+    body * { visibility: hidden; }
+    
+    /* Only show the receipt paper and its contents */
+    #receipt-modal, #receipt-modal * { visibility: visible; }
+    
+    /* Position the receipt at the very top-left for the printer */
+    #receipt-modal {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        display: flex !important;
+        background: white;
+    }
+
+    /* Hide buttons on the printed version */
+    .print-btn, .close-receipt-btn { display: none !important; }
+
+    /* Remove margins to save thermal paper */
+    @page { margin: 0; }
+    body { padding: 0; margin: 0; }
+}
+/* Styling for the Quantity buttons in the popup */
+#rice-modal .qty-btn {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 24px;
+    font-weight: bold;
+    background: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#rice-modal #item-qty {
+    width: 70px !important;
+    height: 50px !important;
+    text-align: center;
+    font-size: 1.5rem;
+    border: 2px solid #2ecc71;
+    border-radius: 8px;
+}
+#history-sidebar {
+    right: -100%; /* Start hidden */
+    transition: 0.3s;
+}
+
+#history-sidebar.active {
+    right: 0; /* Slide in */
+}
 
 
