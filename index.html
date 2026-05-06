@@ -13,10 +13,15 @@
     <div class="overlay" id="overlay"></div>
 
     <header>
-        <div class="logo">🍗 Inasal<span>Green</span></div>
+        <div class="logo"> Inasal<span>Green</span></div>
         <div class="cart-icon" onclick="toggleCart()">
+
             🛒 <span id="cart-count">0</span>
         </div>
+        <button onclick="toggleHistory()">
+    📜 History
+</button>
+
     </header>
 
     <main class="container">
@@ -24,36 +29,60 @@
             <h1>Freshly Grilled</h1>
             <p>Authentic Charcoal Chicken Inasal</p>
         </section>
+<div class="menu-grid">
 
-        <div class="menu-grid">
-            <div class="card">
-                <div class="badge">Best Seller</div>
-                <div class="card-img">🍗</div>
-                <div class="card-info">
-                    <h3>Chicken Paa</h3>
-                    <p>Leg & Thigh marinated in secret spices.</p>
-                    <div class="card-footer">
-                        <span class="price">₱145.00</span>
-                        <button onclick="addToCart('Chicken Paa', 145)">Add</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-img">🍢</div>
-                <div class="card-info">
-                    <h3>Chicken Pecho</h3>
-                    <p>Juicy Breast & Wing charcoal-grilled.</p>
-                    <div class="card-footer">
-                        <span class="price">₱155.00</span>
-                        <button onclick="addToCart('Chicken Pecho', 155)">Add</button>
-                    </div>
-                </div>
+    <div class="card">
+        <div class="badge">B1</div>
+        <div class="card-img">🍗</div>
+        <div class="card-info">
+            <h3>Chicken Paa</h3>
+            <p>Grilled Leg & Thigh</p>
+            <div class="card-footer">
+                <span class="price">₱120.00</span>
+                <button onclick="addToCart('B1 Paa', 120)">Add</button>
             </div>
         </div>
-    </main>
+    </div>
 
-    <!-- Checkout Sidebar -->
+    <div class="card">
+        <div class="badge">B2</div>
+        <div class="card-img"></div>
+        <div class="card-info">
+            <h3>Chicken Pecho</h3>
+            <p>Grilled Breast & Wing</p>
+            <div class="card-footer">
+                <span class="price">₱125.00</span>
+                <button onclick="addToCart('B2 Pecho', 125)">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="badge">B3</div>
+        <div class="card-img"></div>
+        <div class="card-info">
+            <h3>Pork Liempo</h3>
+            <p>Grilled Pork Belly</p>
+            <div class="card-footer">
+                <span class="price">₱130.00</span>
+                <button onclick="addToCart('B3 Liempo', 130)">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-img">🍢</div>
+        <div class="card-info">
+            <h3>Chicken Isaw</h3>
+            <p>Grilled Intestines</p>
+            <div class="card-footer">
+                <span class="price">₱5.00</span>
+                <button onclick="addToCart('Isaw', 5)">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <aside id="cart-sidebar" class="sidebar">
         <div class="sidebar-header">
             <h2>Current Order</h2>
@@ -95,7 +124,7 @@
         </div>
         <hr>
         <div id="receipt-items-list">
-            <!-- Items appear here -->
+
         </div>
         <hr>
         <div class="receipt-math">
@@ -105,6 +134,7 @@
         </div>
         <div class="receipt-footer">
             <p>Thank you for your order!</p>
+            <button class="print-btn" onclick="printReceipt()" style="background: #2e7d32; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Print Receipt 🖨️</button>
             <button class="close-receipt-btn" onclick="closeReceipt()">Close & Done</button>
         </div>
     </div>
@@ -115,11 +145,35 @@
         <p>Select Rice Option:</p>
         <div class="rice-options">
             <button class="rice-btn" onclick="confirmRice(false)">Regular Rice (Free)</button>
-            <button class="rice-btn" onclick="confirmRice(true)">Unli Rice (+₱30.00)</button>
+            <button class="rice-btn" onclick="confirmRice(true)">Unli Rice (+₱20.00)</button>
         </div>
         <button class="cancel-btn" onclick="closeRiceModal()">Cancel</button>
     </div>
 </div>
+<aside id="history-sidebar" class="sidebar">
+    <div class="sidebar-header" style="padding: 20px; border-bottom: 1px solid #eee; display:flex; justify-content:space-between;">
+        <h2 style="margin:0;">Sales History</h2>
+        <button onclick="toggleHistory()" style="background:none; border:none; font-size:24px; cursor:pointer;">×</button>
+    </div>
+    
+    <div style="padding:15px; background:#f9f9f9; display:grid; grid-template-columns: 1fr 1fr;">
+        <div style="text-align:center; border-right:1px solid #ddd;">
+            <small style="color:#777;">Today's Revenue</small>
+            <div id="total-revenue-display" style="font-weight:bold; color:#2e7d32;">₱0.00</div>
+        </div>
+        <div style="text-align:center;">
+            <small style="color:#777;">Orders</small>
+            <div id="total-orders-display" style="font-weight:bold;">0</div>
+        </div>
+    </div>
+    <div id="history-items-list" class="cart-items-list" style="padding: 15px;">
+    </div>
+
+    <div class="sidebar-footer" style="padding:20px; border-top:1px solid #eee;">
+        <button onclick="clearHistory()" style="width:100%; padding:12px; background:#ff4444; color:white; border:none; border-radius:8px;">Reset Sales</button>
+    </div>
+</aside>
+
 
 
     <script src="script.js"></script>
